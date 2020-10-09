@@ -30,7 +30,6 @@ navigator.mediaDevices.getUserMedia({
             connectToNewUser(userId, stream);
           },5000
         )
-        connectToNewUser(userId, stream)
     })
 }).catch(err=>{ console.log(err)})
 
