@@ -22,9 +22,14 @@ navigator.mediaDevices.getUserMedia({
             addVideoStream(video, userVideoStream)
         })
     })
-    
+
     socket.on('user-connected',userId => {
         console.log('Peer connected ' +userId)
+        setTimeout(function ()
+          {
+            connectToNewUser(userId, stream);
+          },5000
+        )
         connectToNewUser(userId, stream)
     })
 }).catch(err=>{ console.log(err)})
