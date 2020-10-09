@@ -23,7 +23,8 @@ navigator.mediaDevices.getUserMedia({
         })
     })
     
-    socket.on('user-connected',(userId) => {
+    socket.on('user-connected',userId => {
+        console.log('Peer connected ' +userId)
         connectToNewUser(userId, stream)
     })
 }).catch(err=>{ console.log(err)})
@@ -37,11 +38,13 @@ myPeer.on('open', id => {
 
 
 function connectToNewUser(userId, stream) {
-    console.log('user connected:' , userId )
     const call = myPeer.call(userId, stream)
     const video = document.createElement('video')
-    call.on('stream', (userVideoStream) => {
+    call.on('stream', userVideoStream => {
         addVideoStream(video, userVideoStream)
+    })
+    call.on('close', () => {
+        video.remove()
     })
 }
 
